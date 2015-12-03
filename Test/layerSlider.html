@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="CSS/default.css" rel="stylesheet" />
+    <link href="CSS/app.min.css" rel="stylesheet" />
+    <link href="CSS/jqueryui.min.css" rel="stylesheet" />
+    <link href="CSS/jquery-ui-slider-pips.min.css" rel="stylesheet" />
+</head>
+<body onload="pageLoad()">
+    <div class="slider" style="margin:150px;width:200px"></div>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="JS/jquery-ui.js"></script>
+    <script src="JS/jquery-ui-slider-pips.js"></script>
+    <script>
+        function pageLoad() {
+    //        $(".slider").slider({
+    //            max: 10
+    //        })
+    //.slider("pips", {
+    //    rest: "label"
+            //});
+            $(".slider").slider().slider("float");
+            //$(".slider").slider().slider("pips");
+        }
+    </script>
+</body>
+</html>

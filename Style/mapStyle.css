@@ -1,0 +1,12 @@
+﻿#map {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.esriPopup img {
+    max-width: 200px;
+    max-height: 133px;
+    border: solid 2px #000;
+}

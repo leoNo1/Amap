@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>FeatureLayer using HeatmapRenderer</title>
+    <link rel="stylesheet" href="//js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="//js.arcgis.com/3.14/esri/css/esri.css">
+    <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script src="//js.arcgis.com/3.14/"></script>
+    <script>
+    var map;
+    require([
+        "esri/InfoTemplate",
+        "esri/layers/FeatureLayer",
+        "esri/map",
+        "esri/renderers/HeatmapRenderer",
+        "dojo/domReady!"
+      ],
+      function (InfoTemplate, FeatureLayer, Map, HeatmapRenderer){
+        map = new Map("map", {
+          basemap: "gray",
+          center: [-119.11, 36.65],
+          zoom: 7,
+          minZoom: 7,
+          maxZoom: 9
+        });
+        var serviceURL = "//services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/2012_CA_NHTSA/FeatureServer/0";
+        var heatmapFeatureLayerOptions = {
+          mode: FeatureLayer.MODE_SNAPSHOT,
+        };
+        var heatmapFeatureLayer = new FeatureLayer(serviceURL, heatmapFeatureLayerOptions);
+        var heatmapRenderer = new HeatmapRenderer();
+        heatmapFeatureLayer.setRenderer(heatmapRenderer);
+        map.addLayer(heatmapFeatureLayer);
+      });
+    </script>
+</head>
+<body>
+    <div id="map"></div>
+</body>
+</html>
