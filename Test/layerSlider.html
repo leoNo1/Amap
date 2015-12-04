@@ -16,14 +16,17 @@
     <script src="JS/jquery-ui-slider-pips.js"></script>
     <script>
         function pageLoad() {
-    //        $(".slider").slider({
-    //            max: 10
-    //        })
-    //.slider("pips", {
-    //    rest: "label"
-            //});
-            $(".slider").slider().slider("float");
-            //$(".slider").slider().slider("pips");
+            $(".slider")
+            .slider({
+                min: 00,
+                max: 24,
+                step: 1
+            })
+            .slider("pips", {
+                rest: "label",
+                step: 3
+            })
+            .slider("float");
         }
     </script>
 </body>
