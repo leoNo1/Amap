@@ -81,6 +81,7 @@ function toolBarClick(id) {
 function trafficConditionsClick() {
     $("#trafficConditions div").toggleClass("active");
     $("#detailedRoad").toggle();
+    updateTime();
     trafficCurrentClick();
     addTrafficCurrentLayer();
 }
@@ -95,6 +96,16 @@ function trafficForecastClick() {
     $("#traffic_forecast_detalied").show();
     $("#traffic_current").removeClass("active");
     $("#traffic_forecast").addClass("active");
+}
+function updateTime() {
+    b = new Date,
+        c = b.getFullYear(),
+        d = b.getMonth() + 1,
+        e = b.getDate(),
+        f = b.getHours(),
+        g = b.getMinutes().toString();
+    $("#dateNow").html(c + "/" + d + "/" + e);
+    $("#timeNow").html(f + ":" + g);
 }
 //底部收缩按钮点击事件
 function contractionBtnClick() {
