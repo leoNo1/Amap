@@ -10,23 +10,35 @@
     <link href="CSS/jquery-ui-slider-pips.min.css" rel="stylesheet" />
 </head>
 <body onload="pageLoad()">
-    <div class="slider" style="margin:150px;width:200px"></div>
+    <!--<div class="slider" style="margin:150px;width:200px"></div>-->
+    <div id="scale-slider" style="margin:550px; width:200px"></div>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="JS/jquery-ui.js"></script>
     <script src="JS/jquery-ui-slider-pips.js"></script>
     <script>
         function pageLoad() {
-            $(".slider")
-            .slider({
-                min: 00,
-                max: 24,
-                step: 1
-            })
-            .slider("pips", {
-                rest: "label",
-                step: 3
-            })
-            .slider("float");
+            //$(".slider")
+            //.slider({
+            //    min: 00,
+            //    max: 24,
+            //    step: 0.5
+            //})
+            //.slider("pips", {
+            //    rest: "label",
+            //    step: 12
+            //})
+            //.slider("float");
+
+            $("#scale-slider")
+                .slider({
+                    max: 24,
+                    min: 0,
+                    values: 20,
+                    range: true
+                })
+                .slider("pips", {
+                    rest: "label"
+                });
         }
     </script>
 </body>
