@@ -96,16 +96,37 @@ function trafficForecastClick() {
     $("#traffic_forecast_detalied").show();
     $("#traffic_current").removeClass("active");
     $("#traffic_forecast").addClass("active");
+    upTrafficForecastDate();
 }
 function updateTime() {
     b = new Date,
-        c = b.getFullYear(),
-        d = b.getMonth() + 1,
-        e = b.getDate(),
-        f = b.getHours(),
-        g = b.getMinutes().toString();
+    c = b.getFullYear(),
+    d = b.getMonth() + 1,
+    d = d < 10 ? "0" + d : d
+    e = b.getDate(),
+    e = e < 10 ? "0" + e : e
+    f = b.getHours(),
+    f = f < 10 ? "0" + f : f
+    g = b.getMinutes().toString();
+    g = g < 10 ? "0" + g : g;
     $("#dateNow").html(c + "/" + d + "/" + e);
     $("#timeNow").html(f + ":" + g);
+}
+function upTrafficForecastDate() {
+    var date = new Date();
+    //date.setHours(date.getHours() + 1);    //当前时间增加一个小时
+    date.setMinutes(date.getMinutes() + 30); //当前时间增加30分钟
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    m = m < 10 ? "0" + m : m;
+    var d = date.getDate();
+    d = d < 10 ? "0" + d : d;
+    var h = date.getHours();
+    h = h < 10 ? "0" + h : h;
+    var mm = date.getMinutes();
+    mm = mm < 10 ? "0" + mm : mm;
+    $("#trafficForecastDate").html(y + "/" + m + "/" + d);
+    $("#trafficForecastTime").html(h + ":" + mm);
 }
 //底部收缩按钮点击事件
 function contractionBtnClick() {
