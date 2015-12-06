@@ -826,7 +826,7 @@ body .is-dragging {
         width: 252px;
         height: 42px;
         margin-left: 20px;
-        background: url(/assets/img/time_select.png) 0 -28px no-repeat;
+        background: url('../assets/img/time_select.png') 0 -28px no-repeat;
     }
 
     .select_time .time_drag {
@@ -855,7 +855,7 @@ body .is-dragging {
     display: inline-block;
     height: 19px;
     width: 11px;
-    background: url(/assets/img/time_select.png) -1px -1px no-repeat;
+    background: url('../assets/img/time_select.png') -1px -1px no-repeat;
     position: absolute;
     outline: 0;
     margin-left: -5px;
