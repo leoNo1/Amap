@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://js.arcgis.com/3.15/dijit/themes/claro/claro.css">
     <link rel="stylesheet" href="https://js.arcgis.com/3.15/esri/css/esri.css">
     <link href="Style/mapStyle.css" rel="stylesheet" />
+    <link href="Test/CSS/style.css" rel="stylesheet" />
     <title>
         Amap
     </title>
@@ -227,42 +228,43 @@
                 <!--图层-->
                 <div id="layer-panel" style="display: none;">
                     <div id="aroundbox">
-                        <h3 id="o2o-title">搜索本地生活，发现城市乐趣</h3>
-                        <div id="o2o-local">
-                            <div class="o2o-local-item1 o2o-keyword" keyword="美食">
-                                <i></i>
-                                <p>美食</p>
-                                <p>二胎进补 美食汇</p>
-                            </div>
-                            <div class="o2o-local-item2">
-                                <span class="local-hotel o2o-keyword" keyword="酒店"><i></i><span>酒店</span></span>
-                                <span class="local-cinema o2o-keyword" keyword="电影院"><i></i><span>电影院</span></span>
-                            </div>
-                        </div>
-                        <div id="o2o-banner" class="o2o-keyword" keyword="景点"><li></li><li></li></div>
-                        <div id="o2o-life">
-                            <dl>
-                                <dt class="life-circle life-bus"><i></i>出行</dt>
-                                <dd>停车场</dd>
-                                <dd>加油站</dd>
-                                <dd>公交站</dd>
-                                <dd>地铁站</dd>
-                            </dl>
-                            <dl>
-                                <dt class="life-circle life-ktv"><i></i>娱乐</dt>
-                                <dd>景点</dd>
-                                <dd>KTV</dd>
-                                <dd>彩票</dd>
-                                <dd data-val="美容美发">丽人</dd>
-                            </dl>
-                            <dl>
-                                <dt class="life-circle life-service"><i></i>服务</dt>
-                                <dd>银行</dd>
-                                <dd>超市</dd>
-                                <dd>厕所</dd>
-                                <dd>药店</dd>
-                            </dl>
-                        </div>
+                        <ul id="accordion" class="accordion">
+                            <li>
+                                <div class="link"><i class="fa fa-paint-brush"></i>Diseño web<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li><a href="#">Photoshop</a></li>
+                                    <li><a href="#">HTML</a></li>
+                                    <li><a href="#">CSS</a></li>
+                                    <li><a href="#">Maquetacion web</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="link"><i class="fa fa-code"></i>Desarrollo front-end<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li><a href="#">Javascript</a></li>
+                                    <li><a href="#">jQuery</a></li>
+                                    <li><a href="#">Frameworks javascript</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="link"><i class="fa fa-mobile"></i>Diseño responsive<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li><a href="#">Tablets</a></li>
+                                    <li><a href="#">Dispositivos mobiles</a></li>
+                                    <li><a href="#">Medios de escritorio</a></li>
+                                    <li><a href="#">Otros dispositivos</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="link"><i class="fa fa-globe"></i>Posicionamiento web<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li><a href="#">Google</a></li>
+                                    <li><a href="#">Bing</a></li>
+                                    <li><a href="#">Yahoo</a></li>
+                                    <li><a href="#">Otros buscadores</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <!--查询-->
@@ -459,7 +461,8 @@
     </div>
     <!--自定义脚本-->
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-    
+
+    <script src="Test/JS/index.js"></script>
     <!--天地图API-->
     <!--<script type="text/javascript" src="http://api.tianditu.com/js/maps.js"></script>
     <script src="Js/TiandiMap.js"></script>-->
