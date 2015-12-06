@@ -6928,8 +6928,8 @@ body.nav--active {
     }
 
     #scale-slider .ui-slider-handle:nth-of-type(n+2) {
-        -webkit-transform: rotateZ(10deg);
-        transform: rotateZ(10deg);
+        /*-webkit-transform: rotateZ(10deg);*/
+        /*transform: rotateZ(10deg);*/
         margin-left: -3px;
     }
 
