@@ -128,6 +128,89 @@ function upTrafficForecastDate() {
     $("#trafficForecastDate").html(y + "/" + m + "/" + d);
     $("#trafficForecastTime").html(h + ":" + mm);
 }
+//图层折叠和展开的控制
+$(function () {
+    var Accordion = function (el, multiple) {
+        this.el = el || {};
+        this.multiple = multiple || false;
+
+        // Variables privadas
+        var links = this.el.find('.link');
+        // Evento
+        links.on('click', { el: this.el, multiple: this.multiple }, this.dropdown)
+    }
+
+    Accordion.prototype.dropdown = function (e) {
+        var $el = e.data.el;
+        $this = $(this),
+        $next = $this.next();
+
+        $next.slideToggle();
+        $this.parent().toggleClass('open');
+        $(".track").toggle();
+        if (!e.data.multiple) {
+            $el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+        };
+    }
+
+    var accordion = new Accordion($('#accordion'), false);
+});
+//图层显隐控制的滑块的滑动事件，包含滑块的动画效果和实际的图层控制
+var target
+$(function () { ScrollerTrack.Init(); });
+var ScrollerTrack = {
+    BodyWidth: 315,
+    //MaxValue: 100,
+    CurrentX: 0,
+    CurrentValue: 0,
+    Count: 0,
+    Init: function () {
+        var mWidth = ScrollerTrack.BodyWidth;
+        $(".contain").css("width", mWidth + "px");
+        var count = ScrollerTrack.MaxValue / 50;
+        ScrollerTrack.Count = count;
+        var itemWidth = mWidth / count;
+        for (var i = 0; i < count; i++) {
+            var span = $("<span>" + (i + 1) * 50 + "</span>");
+            $(span).css("width", itemWidth + "px").css("margin-left", i * itemWidth + "px");
+            $(".value").append(span);
+        }
+        ScrollerTrack.Value();
+    },
+    Value: function () {
+        var currentValue;
+        var isMoving = false;
+        ScrollerTrack.CurrentX = $(".track").offset().left;
+        $(".track").mousedown(function () {
+            target = $(this).parent();
+            isMoving = true;
+            $("html,body").mousemove(function (event) {
+                if (isMoving == false) return;
+                var changeX = event.clientX - ScrollerTrack.CurrentX;
+                currentValue = changeX - ScrollerTrack.CurrentX;
+                if (changeX <= 0) {
+                    $(target).find(".track").css("margin-left", "0px");
+                    $(target).find(".valueC").css("width", "0px");
+                    ScrollerTrack.CurrentValue = 0;
+                }
+                else if (changeX >= ScrollerTrack.BodyWidth - 16) {
+                    $(target).find(".track").css("margin-left", ScrollerTrack.BodyWidth - 16 + "px");
+                    $(target).find(".valueC").css("width", ScrollerTrack.BodyWidth - 16 + "px");
+                    ScrollerTrack.CurrentValue = ScrollerTrack.MaxValue;
+                }
+                else {
+                    $(target).find(".track").css("margin-left", changeX + "px");
+                    $(target).find(".valueC").css("width", changeX + "px");
+                    var v = ScrollerTrack.MaxValue * ((changeX + 16) / ScrollerTrack.BodyWidth);
+                    ScrollerTrack.CurrentValue = parseInt(v);
+                }
+            });
+        });
+        $("html,body").mouseup(function () {
+            isMoving = false;
+        });
+    }
+}
 //底部收缩按钮点击事件
 function contractionBtnClick() {
     $("#navbody").slideToggle("slow");
