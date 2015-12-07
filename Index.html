@@ -236,33 +236,33 @@
                                     <li>
                                         <div class="contain">
                                             <div class="valueC"></div>
-                                            <div class="value"> </div>
-                                            <div class="track"></div>
                                             <div class="show">Photoshop</div>
+                                            <div class="value"> </div>
+                                            <div class="track"></div>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="contain">
                                             <div class="valueC"></div>
-                                            <div class="value"> </div>
-                                            <div class="track"></div>
                                             <div class="show">HTML</div>
+                                            <div class="value"> </div>
+                                            <div class="track"></div>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="contain">
                                             <div class="valueC"></div>
-                                            <div class="value"> </div>
-                                            <div class="track"></div>
                                             <div class="show">CSS</div>
+                                            <div class="value"> </div>
+                                            <div class="track"></div>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="contain">
                                             <div class="valueC"></div>
+                                            <div class="show">Maquetacion web</div>
                                             <div class="value"> </div>
                                             <div class="track"></div>
-                                            <div class="show">Maquetacion web</div>
                                         </div>
                                     </li>
                                 </ul>
@@ -273,25 +273,25 @@
                                     <li>
                                         <div class="contain">
                                             <div class="valueC"></div>
-                                            <div class="value"> </div>
-                                            <div class="track"></div>
                                             <div class="show">Javascript</div>
+                                            <div class="value"> </div>
+                                            <div class="track"></div>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="contain">
                                             <div class="valueC"></div>
-                                            <div class="value"> </div>
-                                            <div class="track"></div>
                                             <div class="show">jQuery</div>
+                                            <div class="value"> </div>
+                                            <div class="track"></div>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="contain">
                                             <div class="valueC"></div>
+                                            <div class="show">Frameworks javascript</div>
                                             <div class="value"> </div>
                                             <div class="track"></div>
-                                            <div class="show">Frameworks javascript</div>
                                         </div>
                                     </li>
                                 </ul>
@@ -524,6 +524,7 @@
 
     <script src="Js/pageJavascript.js"></script>
     <script type="text/javascript">
+        var target
         $(function () { ScrollerTrack.Init(); });
         var ScrollerTrack = {
             BodyWidth: 315,
@@ -549,7 +550,7 @@
                 var isMoving = false;
                 ScrollerTrack.CurrentX = $(".track").offset().left;
                 $(".track").mousedown(function () {
-                    var target = $(this).parent();
+                    target = $(this).parent();
                     isMoving = true;
                     $("html,body").mousemove(function (event) {
                         if (isMoving == false) return;
