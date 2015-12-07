@@ -1,0 +1,52 @@
+﻿body {
+    -webkit-user-select:none;
+}        
+.main {
+            margin: 0 auto;
+            margin-top: 100px;
+            width: 500px;
+        }
+
+        .contain {
+            width: 500px;
+            height: 40px;
+            background-color: #E8E8E8;
+        }
+
+        .track {
+            width: 16px;
+            height: 46px;
+            position: absolute;
+            margin: -3px 0 0 0px;
+            background-color: #2dacd1;
+            cursor:pointer;
+        }
+
+        .valueC {
+            height: 40px;
+            position: absolute;
+            margin: 0;
+            background-color: #43BFE3;
+        }
+
+        .value span {
+            position: absolute;
+            text-align: right;
+            height: 40px;
+            line-height: 40px;
+            color: #808080;
+            border-right: 1px solid #dddddd;
+        }
+
+        .show {
+            /*width: 45px;*/
+            height: 30px;
+            color: black;
+            text-align: center;
+            line-height: 30px;
+            position: absolute;
+            opacity: 0.9;
+            margin-top: 3px;
+            margin-left: 42px;
+            -webkit-user-select:none;
+        }
