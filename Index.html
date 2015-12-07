@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://js.arcgis.com/3.15/esri/css/esri.css">
     <link href="Style/mapStyle.css" rel="stylesheet" />
     <link href="Test/CSS/style.css" rel="stylesheet" />
+    <link href="Style/layerControl.css" rel="stylesheet" />
     <title>
         Amap
     </title>
@@ -89,7 +90,7 @@
 <body scroll="no" class="claro">
     <!-- 底图 -->
     <div id="map"></div>
-    <!-- 搜索框 -->
+    <!--综合搜索框 -->
     <section class="search">
         <header class="searchbox amap0 zdeps-3">
             <img src="assets/img/bk.png" class="usel logo" draggable="false" />
@@ -232,18 +233,67 @@
                             <li>
                                 <div class="link"><i class="fa fa-paint-brush"></i>Diseño web<i class="fa fa-chevron-down"></i></div>
                                 <ul class="submenu">
-                                    <li><a href="#">Photoshop</a></li>
-                                    <li><a href="#">HTML</a></li>
-                                    <li><a href="#">CSS</a></li>
-                                    <li><a href="#">Maquetacion web</a></li>
+                                    <li>
+                                        <div class="contain">
+                                            <div class="valueC"></div>
+                                            <div class="value"> </div>
+                                            <div class="track"></div>
+                                            <div class="show">Photoshop</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="contain">
+                                            <div class="valueC"></div>
+                                            <div class="value"> </div>
+                                            <div class="track"></div>
+                                            <div class="show">HTML</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="contain">
+                                            <div class="valueC"></div>
+                                            <div class="value"> </div>
+                                            <div class="track"></div>
+                                            <div class="show">CSS</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="contain">
+                                            <div class="valueC"></div>
+                                            <div class="value"> </div>
+                                            <div class="track"></div>
+                                            <div class="show">Maquetacion web</div>
+                                        </div>
+                                    </li>
                                 </ul>
                             </li>
                             <li>
                                 <div class="link"><i class="fa fa-code"></i>Desarrollo front-end<i class="fa fa-chevron-down"></i></div>
                                 <ul class="submenu">
-                                    <li><a href="#">Javascript</a></li>
-                                    <li><a href="#">jQuery</a></li>
-                                    <li><a href="#">Frameworks javascript</a></li>
+                                    <li>
+                                        <div class="contain">
+                                            <div class="valueC"></div>
+                                            <div class="value"> </div>
+                                            <div class="track"></div>
+                                            <div class="show">Javascript</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="contain">
+                                            <div class="valueC"></div>
+                                            <div class="value"> </div>
+                                            <div class="track"></div>
+                                            <div class="show">jQuery</div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="contain">
+                                            <div class="valueC"></div>
+                                            <div class="value"> </div>
+                                            <div class="track"></div>
+                                            <div class="show">Frameworks javascript</div>
+                                        </div>
+                                    </li>
                                 </ul>
                             </li>
                             <li>
@@ -473,5 +523,67 @@
     <script src="Js/mapJs.js"></script>
 
     <script src="Js/pageJavascript.js"></script>
+    <script type="text/javascript">
+        $(function () { ScrollerTrack.Init(); });
+        var ScrollerTrack = {
+            BodyWidth: 315,
+            //MaxValue: 100,
+            CurrentX: 0,
+            CurrentValue: 0,
+            Count: 0,
+            Init: function () {
+                var mWidth = ScrollerTrack.BodyWidth;
+                $(".contain").css("width", mWidth + "px");
+                var count = ScrollerTrack.MaxValue / 50;
+                ScrollerTrack.Count = count;
+                var itemWidth = mWidth / count;
+                for (var i = 0; i < count; i++) {
+                    var span = $("<span>" + (i + 1) * 50 + "</span>");
+                    $(span).css("width", itemWidth + "px").css("margin-left", i * itemWidth + "px");
+                    $(".value").append(span);
+                }
+                ScrollerTrack.Value();
+            },
+            Value: function () {
+                var currentValue;
+                var isMoving = false;
+                ScrollerTrack.CurrentX = $(".track").offset().left;
+                $(".track").mousedown(function () {
+                    var target = $(this).parent();
+                    isMoving = true;
+                    $("html,body").mousemove(function (event) {
+                        if (isMoving == false) return;
+                        var changeX = event.clientX - ScrollerTrack.CurrentX;
+                        currentValue = changeX - ScrollerTrack.CurrentX;
+                        if (changeX <= 0) {
+                            $(target).find(".track").css("margin-left", "0px");
+                            $(target).find(".valueC").css("width", "0px");
+                            //$(target).find(".show").css("margin-left", "-15px");
+                            //$(target).find(".show").html(0);
+                            ScrollerTrack.CurrentValue = 0;
+                        }
+                        else if (changeX >= ScrollerTrack.BodyWidth - 16) {
+                            $(target).find(".track").css("margin-left", ScrollerTrack.BodyWidth - 16 + "px");
+                            $(target).find(".valueC").css("width", ScrollerTrack.BodyWidth - 16 + "px");
+                            //$(target).find(".show").css("margin-left", ScrollerTrack.BodyWidth - 31 + "px");
+                            //$(target).find(".show").html(ScrollerTrack.MaxValue);
+                            ScrollerTrack.CurrentValue = ScrollerTrack.MaxValue;
+                        }
+                        else {
+                            $(target).find(".track").css("margin-left", changeX + "px");
+                            $(target).find(".valueC").css("width", changeX + "px");
+                            //$(target).find(".show").css("margin-left", changeX - 15 + "px");
+                            var v = ScrollerTrack.MaxValue * ((changeX + 16) / ScrollerTrack.BodyWidth);
+                            //$(target).find(".show").html(parseInt(v));
+                            ScrollerTrack.CurrentValue = parseInt(v);
+                        }
+                    });
+                });
+                $("html,body").mouseup(function () {
+                    isMoving = false;
+                });
+            }
+        }
+    </script>
 </body>
 </html>
