@@ -16,7 +16,7 @@ $(function() {
 
 		$next.slideToggle();
 		$this.parent().toggleClass('open');
-
+		$(".track").toggle();
 		if (!e.data.multiple) {
 			$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
 		};
