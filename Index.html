@@ -8,84 +8,12 @@
     <link rel="stylesheet" href="https://js.arcgis.com/3.15/dijit/themes/claro/claro.css">
     <link rel="stylesheet" href="https://js.arcgis.com/3.15/esri/css/esri.css">
     <link href="Style/mapStyle.css" rel="stylesheet" />
-    <link href="Test/CSS/style.css" rel="stylesheet" />
     <link href="Style/layerControl.css" rel="stylesheet" />
+    <link href="Style/amap1.css" rel="stylesheet" />
+    <link href="Style/amap2.css" rel="stylesheet" />
     <title>
         Amap
     </title>
-    <script type="text/javascript">
-
-            if(/mobile/i.test(navigator.userAgent)){ location.href = "http://m.amap.com"; }
-            if(!document.all){ //IE11 or other
-                console.log("@map.version = 2.0");
-            } else { //IE6-10
-
-                if (window.navigator.appName !== 'Microsoft Internet Explorer') {
-                    //非IE
-                } else {
-
-                    var mode = 5;
-
-                    if (document.documentMode) {
-                        mode = document.documentMode;
-                    } else if (document.compatMode) {
-                        if (document.compatMode === 'CSS1Compat') {
-                            mode = 7;
-                        }
-                    }
-
-                    var rv = -1,
-                        ua = navigator.userAgent;
-                    var re = new RegExp('MSIE ([0-9]{1,}[\\.0-9]{0,})');
-                    if (re.exec(ua) !== null) {
-                        rv = parseFloat(RegExp.$1);
-                    }
-
-                    var v = 11;
-
-                    //IE11
-                    if (mode < v || rv < v) {
-                        location.href = "http://map.amap.com";
-                    }
-
-                }
-            }
-
-    </script>
-    <link href="Style/amap1.css" rel="stylesheet" />
-    <link href="Style/amap2.css" rel="stylesheet" />
-    <style>
-        @-webkit-keyframes jBox-animation-zoomOutOpen-open {
-            0% {
-                -webkit-transform: scale(1.1);
-            }
-
-            100% {
-                -webkit-transform: scale(1);
-            }
-        }
-
-        .jBox-animation-zoomOutOpen-open {
-            -webkit-animation-duration: 180ms;
-            -webkit-animation-name: jBox-animation-zoomOutOpen-open;
-        }
-
-        @-webkit-keyframes jBox-animation-zoomOutClose-close {
-            0% {
-                -webkit-transform: scale(1);
-            }
-
-            100% {
-                -webkit-transform: scale(1.1);
-            }
-        }
-
-        .jBox-animation-zoomOutClose-close {
-            -webkit-animation-duration: 180ms;
-            -webkit-animation-name: jBox-animation-zoomOutClose-close;
-        }
-    </style>
-
 </head>
 <body scroll="no" class="claro">
     <!-- 底图 -->
@@ -509,10 +437,8 @@
             </div>
         </div>
     </div>
-    <!--自定义脚本-->
+    <!--脚本-->
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-
-    <script src="Test/JS/index.js"></script>
     <!--天地图API-->
     <!--<script type="text/javascript" src="http://api.tianditu.com/js/maps.js"></script>
     <script src="Js/TiandiMap.js"></script>-->
@@ -521,70 +447,7 @@
     <script src="https://js.arcgis.com/3.15/"></script>
     <!--<script src="Js/ArcGISAPI.js"></script>-->
     <script src="Js/mapJs.js"></script>
-
+    <!--页面基础控制脚本-->
     <script src="Js/pageJavascript.js"></script>
-    <script type="text/javascript">
-        var target
-        $(function () { ScrollerTrack.Init(); });
-        var ScrollerTrack = {
-            BodyWidth: 315,
-            //MaxValue: 100,
-            CurrentX: 0,
-            CurrentValue: 0,
-            Count: 0,
-            Init: function () {
-                var mWidth = ScrollerTrack.BodyWidth;
-                $(".contain").css("width", mWidth + "px");
-                var count = ScrollerTrack.MaxValue / 50;
-                ScrollerTrack.Count = count;
-                var itemWidth = mWidth / count;
-                for (var i = 0; i < count; i++) {
-                    var span = $("<span>" + (i + 1) * 50 + "</span>");
-                    $(span).css("width", itemWidth + "px").css("margin-left", i * itemWidth + "px");
-                    $(".value").append(span);
-                }
-                ScrollerTrack.Value();
-            },
-            Value: function () {
-                var currentValue;
-                var isMoving = false;
-                ScrollerTrack.CurrentX = $(".track").offset().left;
-                $(".track").mousedown(function () {
-                    target = $(this).parent();
-                    isMoving = true;
-                    $("html,body").mousemove(function (event) {
-                        if (isMoving == false) return;
-                        var changeX = event.clientX - ScrollerTrack.CurrentX;
-                        currentValue = changeX - ScrollerTrack.CurrentX;
-                        if (changeX <= 0) {
-                            $(target).find(".track").css("margin-left", "0px");
-                            $(target).find(".valueC").css("width", "0px");
-                            //$(target).find(".show").css("margin-left", "-15px");
-                            //$(target).find(".show").html(0);
-                            ScrollerTrack.CurrentValue = 0;
-                        }
-                        else if (changeX >= ScrollerTrack.BodyWidth - 16) {
-                            $(target).find(".track").css("margin-left", ScrollerTrack.BodyWidth - 16 + "px");
-                            $(target).find(".valueC").css("width", ScrollerTrack.BodyWidth - 16 + "px");
-                            //$(target).find(".show").css("margin-left", ScrollerTrack.BodyWidth - 31 + "px");
-                            //$(target).find(".show").html(ScrollerTrack.MaxValue);
-                            ScrollerTrack.CurrentValue = ScrollerTrack.MaxValue;
-                        }
-                        else {
-                            $(target).find(".track").css("margin-left", changeX + "px");
-                            $(target).find(".valueC").css("width", changeX + "px");
-                            //$(target).find(".show").css("margin-left", changeX - 15 + "px");
-                            var v = ScrollerTrack.MaxValue * ((changeX + 16) / ScrollerTrack.BodyWidth);
-                            //$(target).find(".show").html(parseInt(v));
-                            ScrollerTrack.CurrentValue = parseInt(v);
-                        }
-                    });
-                });
-                $("html,body").mouseup(function () {
-                    isMoving = false;
-                });
-            }
-        }
-    </script>
 </body>
 </html>
