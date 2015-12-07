@@ -18,15 +18,16 @@
             height: 46px;
             position: absolute;
             margin: -3px 0 0 0px;
-            background-color: #2dacd1;
+            background-color: #0E97FF;
             cursor:pointer;
+            display:none;
         }
 
         .valueC {
             height: 40px;
             position: absolute;
             margin: 0;
-            background-color: #43BFE3;
+            background-color:white;
         }
 
         .value span {
