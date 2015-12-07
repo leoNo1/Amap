@@ -1,15 +1,82 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
-	<meta charset="utf-8" />
-    <link href="../Style/ArcGISDojo.css" rel="stylesheet" />
-    <link href="../Style/ArcGIS.css" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>例子</title>
+    <style>
+        #box {
+            position: relative;
+            width: 315px;
+            height: 45px;
+            margin: 10px auto;
+            overflow: hidden;
+        }
+            #box ul {
+                list-style-position: inside;
+                margin: 10px;
+            }
+        #top, #bottom {
+            color: #FFF;
+            width: 157.5px;
+            height: 45px;
+            overflow: hidden;
+        }
+        #top {
+            background-color:darkturquoise;
+            float: left;
+        }
+        #bottom {
+            background-color:azure;
+            float: right;
+        }
+        #line {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            height: 100%;
+            width: 4px;
+            overflow: hidden;
+            background-color:aqua;
+            cursor: w-resize;
+        }
+    </style>
+    <script>
+function $(id) {
+	return document.getElementById(id)
+}
+window.onload = function() {
+	var oBox = $("box"), oTop = $("top"), oBottom = $("bottom"), oLine = $("line");
+	oLine.onmousedown = function(e) {
+		var disX = (e || event).clientX;
+		oLine.left = oLine.offsetLeft;
+		document.onmousemove = function(e) {
+			var iT = oLine.left + ((e || event).clientX - disX);
+            var e=e||window.event,tarnameb=e.target||e.srcElement;
+			var maxT = oBox.clientWight - oLine.offsetWidth;
+			oLine.style.margin = 0;
+			iT < 0 && (iT = 0);
+			iT > maxT && (iT = maxT);
+			oLine.style.left = oTop.style.width = iT + "px";
+			oBottom.style.width = oBox.clientWidth - iT + "px";
+            //$("msg").innerText='top.width:'+oLine.style.width+'---bottom.width:'+oBottom.style.width+'---oLine.offsetLeft:'+oLine.offsetLeft+'---disX:'+disX+'---tarnameb:'+tarnameb.tagName;
+			return false
+		};
+		document.onmouseup = function() {
+			document.onmousemove = null;
+			document.onmouseup = null;
+			oLine.releaseCapture && oLine.releaseCapture()
+		};
+		oLine.setCapture && oLine.setCapture();
+		return false
+	};
+};
+    </script>
 </head>
 <body>
-    <div id="map"></div>
-    <script src="../Js/ArcGISAPI.js"></script>
-    <script src="../Js/mapJs.js"></script>
+    <div id="box">
+        <div id="top"></div>
+        <div id="bottom"></div>
+        <div id="line"></div>
+    </div>
 </body>
 </html>

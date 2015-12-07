@@ -1,82 +1,131 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>例子</title>
-    <style>
-        #box {
-            position: relative;
-            width: 315px;
-            height: 40px;
-            margin: 10px auto;
-            overflow: hidden;
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style type="text/css">
+        .main {
+            margin: 0 auto;
+            margin-top: 100px;
+            width: 500px;
+            -webkit-user-select: none;
         }
 
-        #top, #bottom {
-            color: #FFF;
-            width: 157.5px;
+        .contain {
+            width: 500px;
             height: 40px;
-            overflow: hidden;
+            background-color: #E8E8E8;
         }
-        #top {
-            background: green;
-            float: left;
-        }
-        #bottom {
-            float: right;
-        }
-        #line {
+
+        .track {
+            width: 16px;
+            height: 46px;
             position: absolute;
-            top: 0;
-            left: 50%;
-            height: 100%;
-            width: 4px;
-            overflow: hidden;
-            background: red;
-            cursor: w-resize;
+            margin: -3px 0 0 0px;
+            background-color: #2dacd1;
+            cursor:w-resize;
+        }
+
+        .valueC {
+            height: 40px;
+            position: absolute;
+            margin: 0;
+            background-color: #43BFE3;
+        }
+
+        .value span {
+            position: absolute;
+            text-align: right;
+            height: 40px;
+            line-height: 40px;
+            color: #808080;
+            border-right: 1px solid #dddddd;
+        }
+
+        .show {
+            width: 45px;
+            height: 30px;
+            color:black;
+            text-align: center;
+            line-height: 30px;
+            position: absolute;
+            opacity: 0.9;
+            margin-top: 3px;
+            margin-left: 18px;
         }
     </style>
-    <script>
-function $(id) {
-	return document.getElementById(id)
-}
-window.onload = function() {
-	var oBox = $("box"), oTop = $("top"), oBottom = $("bottom"), oLine = $("line");
-	oLine.onmousedown = function(e) {
-		var disX = (e || event).clientX;
-		oLine.left = oLine.offsetLeft;
-		document.onmousemove = function(e) {
-			var iT = oLine.left + ((e || event).clientX - disX);
-            var e=e||window.event,tarnameb=e.target||e.srcElement;
-			var maxT = oBox.clientWight - oLine.offsetWidth;
-			oLine.style.margin = 0;
-			iT < 0 && (iT = 0);
-			iT > maxT && (iT = maxT);
-			oLine.style.left = oTop.style.width = iT + "px";
-			oBottom.style.width = oBox.clientWidth - iT + "px";
-            $("msg").innerText='top.width:'+oLine.style.width+'---bottom.width:'+oBottom.style.width+'---oLine.offsetLeft:'+oLine.offsetLeft+'---disX:'+disX+'---tarnameb:'+tarnameb.tagName;
-			return false
-		};
-		document.onmouseup = function() {
-			document.onmousemove = null;
-			document.onmouseup = null;
-			oLine.releaseCapture && oLine.releaseCapture()
-		};
-		oLine.setCapture && oLine.setCapture();
-		return false
-	};
-};
-    </script>
 </head>
 <body>
-    <center>左右拖动红条改变显示区域高度<span id="msg"></span></center>
-    <div id="box">
-        <div id="top">
+    <div class="main">
+        <div class="contain">
+            <div class="valueC"></div>
+            <div class="value"> </div>
+            <div class="track"></div>
+            <div class="show"><a href="#">Photoshop</a></div>
         </div>
-        <div id="bottom">
-        </div>
-        <div id="line"></div>
     </div>
-    <div style="position:absolute;left:800px;top:60px;z-index:22">qe2212</div>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () { ScrollerTrack.Init(); });
+        var ScrollerTrack = {
+            BodyWidth: 315,
+            //MaxValue: 100,
+            CurrentX: 0,
+            CurrentValue: 0,
+            Count: 0,
+            Init: function () {
+                var mWidth = ScrollerTrack.BodyWidth;
+                $(".contain").css("width", mWidth + "px");
+                var count = ScrollerTrack.MaxValue / 50;
+                ScrollerTrack.Count = count;
+                var itemWidth = mWidth / count;
+                for (var i = 0; i < count; i++) {
+                    var span = $("<span>" + (i + 1) * 50 + "</span>");
+                    $(span).css("width", itemWidth + "px").css("margin-left", i * itemWidth + "px");
+                    $(".value").append(span);
+                }
+                ScrollerTrack.Value();
+            },
+            Value: function () {
+                var currentValue;
+                var isMoving = false;
+                ScrollerTrack.CurrentX = $(".track").offset().left;
+                $(".track").mousedown(function () {
+                    var target = $(this).parent();
+                    isMoving = true;
+                    $("html,body").mousemove(function (event) {
+                        if (isMoving == false) return;
+                        var changeX = event.clientX - ScrollerTrack.CurrentX;
+                        currentValue = changeX - ScrollerTrack.CurrentX;
+                        if (changeX <= 0) {
+                            $(target).find(".track").css("margin-left", "0px");
+                            $(target).find(".valueC").css("width", "0px");
+                            //$(target).find(".show").css("margin-left", "-15px");
+                            //$(target).find(".show").html(0);
+                            ScrollerTrack.CurrentValue = 0;
+                        }
+                        else if (changeX >= ScrollerTrack.BodyWidth - 16) {
+                            $(target).find(".track").css("margin-left", ScrollerTrack.BodyWidth - 16 + "px");
+                            $(target).find(".valueC").css("width", ScrollerTrack.BodyWidth - 16 + "px");
+                            //$(target).find(".show").css("margin-left", ScrollerTrack.BodyWidth - 31 + "px");
+                            //$(target).find(".show").html(ScrollerTrack.MaxValue);
+                            ScrollerTrack.CurrentValue = ScrollerTrack.MaxValue;
+                        }
+                        else {
+                            $(target).find(".track").css("margin-left", changeX + "px");
+                            $(target).find(".valueC").css("width", changeX + "px");
+                            //$(target).find(".show").css("margin-left", changeX - 15 + "px");
+                            var v = ScrollerTrack.MaxValue * ((changeX + 16) / ScrollerTrack.BodyWidth);
+                            //$(target).find(".show").html(parseInt(v));
+                            ScrollerTrack.CurrentValue = parseInt(v);
+                        }
+                    });
+                });
+                $("html,body").mouseup(function () {
+                    isMoving = false;
+                });
+            }
+        }
+    </script>
 </body>
 </html>
