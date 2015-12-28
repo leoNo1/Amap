@@ -1,5 +1,5 @@
-﻿var queryTrafficCurrent;
-var heatMap;
+﻿var queryTrafficCurrent,   //实时交通状况
+      heatMap;                  //交通事故热点图
 require([
     "esri/map",
     "esri/layers/FeatureLayer",
@@ -23,15 +23,6 @@ require([
     Color,
     HeatmapRenderer
   ) {
-      //var map = new Map("map", {
-      //    basemap: "streets",
-      //    //center: [-119.11, 36.65],
-      //    zoom: 7,
-      //    minZoom: 7,
-      //    maxZoom: 9
-      //});
-
-
       var map = new Map("map", {
           basemap: "topo",
           center: [-102.843217, 42.17732],
