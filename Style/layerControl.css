@@ -4,7 +4,7 @@
 }
 
 a {
-	/*color: #b63b4d;*/
+	color: #b63b4d;
 	text-decoration: none;
 }
 
@@ -95,21 +95,21 @@ h1 a {
  	border-bottom: 1px dotted #4b4a5e;
  }
 
- .submenu a {
+ .submenu p {
  	display: block;
  	text-decoration: none;
- 	/*color:black;
+ 	color:black;
  	padding: 12px;
- 	padding-left: 42px;*/
+ 	padding-left: 42px;
  	-webkit-transition: all 0.25s ease;
  	-o-transition: all 0.25s ease;
  	transition: all 0.25s ease;
  }
 
- /*.submenu a:hover {
+ .submenu p:hover {
  	background-color:#51b0fb;
  	color: #FFF;
- }*/
+ }
 
 
 body {

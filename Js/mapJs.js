@@ -7,6 +7,7 @@ require([
     "esri/tasks/QueryTask",
     "esri/graphic",
     "esri/symbols/SimpleLineSymbol",
+    "esri/symbols/SimpleMarkerSymbol",
     "esri/symbols/CartographicLineSymbol",
     "esri/Color",
     "esri/renderers/HeatmapRenderer",
@@ -19,6 +20,7 @@ require([
     QueryTask,
     Graphic,
     SimpleLineSymbol,
+    SimpleMarkerSymbol,
     CartographicLineSymbol,
     Color,
     HeatmapRenderer
@@ -27,7 +29,8 @@ require([
           basemap: "topo",
           center: [-102.843217, 42.17732],
           zoom: 5,
-          slider:false
+          slider: false,
+          logo:false
       });
 
       //var featureLayer = new FeatureLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/1");
@@ -93,6 +96,23 @@ require([
                   map.graphics.add(new Graphic(featureGeo, lineSymbol_LV4));
               }
           }
+
+          var symbol = new SimpleMarkerSymbol({
+              "color": [255, 255, 255, 64],
+              "size": 12,
+              "angle": -30,
+              "xoffset": 0,
+              "yoffset": 0,
+              "type": "esriSMS",
+              "style": "esriSMSCircle",
+              "outline": {
+                  "color": [0, 0, 0, 255],
+                  "width": 1,
+                  "type": "esriSLS",
+                  "style": "esriSLSSolid"
+              }
+          });
+          var point = results.features[0].geometry
       }
   });
 function addTrafficCurrentLayer() {

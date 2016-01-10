@@ -1,159 +1,73 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>CSS3垂直手风琴折叠菜单DEMO演示</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="CSS/style.css" rel="stylesheet" />
-    <link href="../Style/layerControl.css" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Proportional symbols for points</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/3.15/esri/css/esri.css">
+    <style>
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #FFF;
+            overflow: hidden;
+            font-family: "Trebuchet MS";
+        }
+    </style>
+    <script src="https://js.arcgis.com/3.15/"></script>
+    <script>
+      var map;
+      require([
+        "esri/map", "esri/layers/FeatureLayer", "esri/InfoTemplate",
+        "dojo/domReady!"
+      ], function(
+        Map, FeatureLayer, InfoTemplate
+      ){
+
+        map = new Map("map", {
+          basemap:"streets",
+          center: [-82.441, 35.612],
+          zoom: 17
+        });
+
+        var template = new InfoTemplate("${Cmn_Name}", "<i>${Sci_Name}</i><br><br>The ${Cmn_Name} is <b>${Height} feet</b> tall with a total ground area of <b>${GroundArea} square feet</b>.  This tree sequestors <b>${C_Seq} pounds</b> of carbon per year.");
+
+        var layer = new FeatureLayer("http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Warren_College_Trees/FeatureServer/0", {
+          mode: FeatureLayer.MODE_SNAPSHOT,
+          orderByFields: [ "GroundArea DESC" ],
+          outFields: ["Cmn_Name", "GroundArea", "Sci_Name", "Height", "C_Seq"],
+          infoTemplate: template
+        });
+
+        var sizeInfo = {
+          field:"GroundArea",
+          valueUnit:"feet",
+          valueRepresentation:"area"
+        };
+
+        layer.on("load", function() {
+          layer.renderer.setSizeInfo(sizeInfo);
+          layer.copyright = "Warren Wilson Center Campus Tree Study";
+        });
+
+        map.addLayers([layer]);
+      });
+    </script>
 </head>
 <body>
-    <div style="text-align:center;clear:both">
-    </div>
-    <!-- Contenedor -->
-    <ul id="accordion" class="accordion">
-        <li>
-            <div class="link"><i class="fa fa-paint-brush"></i>Diseño web<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-                        <li>
-                            <div class="contain" id="Photoshop">
-                                <div class="valueC"></div>
-                                <div class="value"> </div>
-                                <div class="track"></div>
-                                <div class="show">Photoshop</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="contain" id="www">
-                                <div class="valueC"></div>
-                                <div class="value"> </div>
-                                <div class="track"></div>
-                                <div class="show">HTML</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="contain" id="ccc">
-                                <div class="valueC"></div>
-                                <div class="value"> </div>
-                                <div class="track"></div>
-                                <div class="show">CSS</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="contain">
-                                <div class="valueC"></div>
-                                <div class="value"> </div>
-                                <div class="track"></div>
-                                <div class="show">Maquetacion web</div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="link"><i class="fa fa-code"></i>Desarrollo front-end<i class="fa fa-chevron-down"></i></div>
-                    <ul class="submenu">
-                        <li>
-                            <div class="contain">
-                                <div class="valueC"></div>
-                                <div class="value"> </div>
-                                <div class="track"></div>
-                                <div class="show">Javascript</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="contain">
-                                <div class="valueC"></div>
-                                <div class="value"> </div>
-                                <div class="track"></div>
-                                <div class="show">jQuery</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="contain">
-                                <div class="valueC"></div>
-                                <div class="value"> </div>
-                                <div class="track"></div>
-                                <div class="show">Frameworks javascript</div>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-        <li>
-            <div class="link"><i class="fa fa-mobile"></i>Diseño responsive<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-                <li><a href="#">Tablets</a></li>
-                <li><a href="#">Dispositivos mobiles</a></li>
-                <li><a href="#">Medios de escritorio</a></li>
-                <li><a href="#">Otros dispositivos</a></li>
-            </ul>
-        </li>
-        <li>
-            <div class="link"><i class="fa fa-globe"></i>Posicionamiento web<i class="fa fa-chevron-down"></i></div>
-            <ul class="submenu">
-                <li><a href="#">Google</a></li>
-                <li><a href="#">Bing</a></li>
-                <li><a href="#">Yahoo</a></li>
-                <li><a href="#">Otros buscadores</a></li>
-            </ul>
-        </li>
-    </ul>
+    <div id="map">
 
-    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="JS/index.js"></script>
-    <script type="text/javascript">
-        $(function () { ScrollerTrack.Init(); });
-        var ScrollerTrack = {
-            BodyWidth: 315,
-            CurrentX: 0,
-            CurrentValue: 0,
-            Count: 0,
-            Init: function () {
-                var mWidth = ScrollerTrack.BodyWidth;
-                $(".contain").css("width", mWidth + "px");
-                ScrollerTrack.Value();
-            },
-            Value: function () {
-                var currentValue;
-                var isMoving = false;
-                ScrollerTrack.CurrentX = $(".track").offset().left;
-                $(".track").mousedown(function () {
-                    var target = $(this).parent();
-                    var targetId = target.attr("id");
-                    isMoving = true;
-                    $("html").mousemove(function (event) {
-                        if (isMoving == false) return;
-                        var changeX = event.clientX - ScrollerTrack.CurrentX;
-                        currentValue = changeX - ScrollerTrack.CurrentX;
-                        var track = "div#" + targetId + " .track";
-                        var valueC = "div#" + targetId + " .valueC";
-                        if (changeX <= 0 &&targetId!=null) {
-                            $(track).css("margin-left", "0px");
-                            $(valueC).css("width", "0px");
-                            ScrollerTrack.CurrentValue = 0;
-                            //$(".track").unbind();
-                        }
-                        else if (changeX >= ScrollerTrack.BodyWidth - 16 && targetId!=null) {
-                            $(track).css("margin-left", ScrollerTrack.BodyWidth - 16 + "px");
-                            $(valueC).css("width", ScrollerTrack.BodyWidth - 16 + "px");
-                            ScrollerTrack.CurrentValue = ScrollerTrack.MaxValue;
-                            //$(".track").unbind();
-                        }
-                        else if (targetId!=null) {
-                            $(track).css("margin-left", changeX + "px");
-                            $(valueC).css("width", changeX + "px");
-                            var v = ScrollerTrack.MaxValue * ((changeX + 16) / ScrollerTrack.BodyWidth);
-                            ScrollerTrack.CurrentValue = parseInt(v);
-                            //$(".track").unbind();
-                        }
-                    });
-                });
-                $("html,body").mouseup(function () {
-                    isMoving = false;
-                });
-            }
-        }
-    </script>
+        <div style="font-family: Lucida Grande,Helvetica,Arial,Verdana,sans-serif; font-size: 14px; position: absolute; right: 7px; top: 7px; z-index: 100; padding: 5px; border: 2px solid #666666; border-radius: 5px; background-color: white; width:175px;">
+            <div id="tree_legend">
+                <div style="padding: 6px; text-align: center;">
+                    Warren Wilson Center Campus <a href="http://www.warren-wilson.edu/~treemap/index.php" target="_blank">Tree Study</a><br><br>Map depicts tree canopy size and yearly carbon sequestration. Darker green trees sequestor more carbon.  Touch a tree for more information.
+                </div>
+            </div>
 </body>
-
 </html>
