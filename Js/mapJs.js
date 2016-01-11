@@ -3,9 +3,11 @@
 require([
     "esri/map",
     "esri/layers/FeatureLayer",
+    "esri/geometry/Point",
     "esri/tasks/query",
     "esri/tasks/QueryTask",
     "esri/graphic",
+    "esri/layers/GraphicsLayer",
     "esri/symbols/SimpleLineSymbol",
     "esri/symbols/SimpleMarkerSymbol",
     "esri/symbols/CartographicLineSymbol",
@@ -16,9 +18,11 @@ require([
   function (
     Map,
     FeatureLayer,
+    Point,
     Query,
     QueryTask,
     Graphic,
+    GraphicsLayer,
     SimpleLineSymbol,
     SimpleMarkerSymbol,
     CartographicLineSymbol,
@@ -97,7 +101,7 @@ require([
               }
           }
 
-          var symbol = new SimpleMarkerSymbol({
+         symbol = new SimpleMarkerSymbol({
               "color": [255, 255, 255, 64],
               "size": 12,
               "angle": -30,
@@ -112,7 +116,32 @@ require([
                   "style": "esriSLSSolid"
               }
           });
-          var point = results.features[0].geometry
+          pointArray = results.features[1].geometry.paths[0];
+          setInterval(a, 1);
+          var glpoint = new GraphicsLayer({ id: "pointsHeat" });
+          map.addLayer(glpoint);
+          var p = 1;
+          function a() {
+              if (p <= 1000) {
+                  //for (var i = 0, L = pointArray.length; i < L - 1; i++) {
+                  var pointXY = pointArray[0];
+                  var pointNextXY = pointArray[1];
+                  //var point = new Point(pointXY[0], pointXY[1]);
+                  //var pointNext = new Point(pointNextXY[0], pointNextXY[1]);
+                  //map.graphics.add(new Graphic(point, symbol));
+
+
+                  var distanceX = (pointNextXY[0] - pointXY[0]) / 1000;
+                  var distanceY = (pointNextXY[1] - pointXY[1]) / 1000;
+                  var X = pointXY[0] + distanceX * p;
+                  var Y = pointXY[1] + distanceY * p;
+                  var point = new Point(X, Y);
+                  glpoint.clear();
+                  glpoint.add(new Graphic(point, symbol));
+                  //}
+              }
+              p++;
+          }
       }
   });
 function addTrafficCurrentLayer() {
@@ -121,3 +150,5 @@ function addTrafficCurrentLayer() {
 function addHeatMapLayer() {
     heatMap();
 }
+
+
